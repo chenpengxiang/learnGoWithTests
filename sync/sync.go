@@ -3,13 +3,13 @@ package main
 import "sync"
 
 type Counter struct {
-	sync.Mutex
+	mu    sync.Mutex
 	value int
 }
 
 func (c *Counter) Inc() {
-	c.Lock()
-	defer c.Unlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	c.value++
 }
 
