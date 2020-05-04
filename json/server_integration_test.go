@@ -7,7 +7,7 @@ import (
 )
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
-	server := &PlayerServer{NewInMemoryPlayerStore()}
+	server := NewPlayerServer(NewInMemoryPlayerStore())
 	player := "Pepper"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPOSTScoreRequest(player))
