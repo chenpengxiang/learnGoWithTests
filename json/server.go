@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -20,6 +21,17 @@ type PlayerServer struct {
 type Player struct {
 	Name string
 	Wins int
+}
+
+type FileSystemPlayerStore struct {
+	database io.Reader
+}
+
+func (f *FileSystemPlayerStore) GetLeague() []Player {
+	var league []Player
+	json.NewDecoder(f.database).Decode(&league)
+
+	return league
 }
 
 func NewPlayerServer(store PlayerStore) *PlayerServer {
